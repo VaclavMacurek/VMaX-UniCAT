@@ -6,7 +6,7 @@ namespace UniCAT;
  * @package VMaX-UniCAT
  *
  * @author Václav Macùrek <VaclavMacurek@seznam.cz>
- * @copyright 2014, Václav Macùrek
+ * @copyright 2014 - 2015 Václav Macùrek
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
@@ -185,6 +185,26 @@ interface I_UniCAT_Texts_Exceptions
 	 * wrong option;
 	 */
 	const UNICAT_EXCEPTIONS_SEC_VAR_DMDFUNCTION2 = 'WARNING: Value %s demands using of function %s';
+	/**
+	 * secondary part of exception text;
+	 * wrong option;
+	 */
+	const UNICAT_EXCEPTIONS_SEC_VAR_ARRKPRHBFUNCTION1 = 'WARNING: Array dimension %s prohibits using of this function';
+	/**
+	 * secondary part of exception text;
+	 * wrong option;
+	 */
+	const UNICAT_EXCEPTIONS_SEC_VAR_ARRKPRHBFUNCTION2 = 'WARNING: Array dimension %s prohibits using of function %s';
+	/**
+	 * secondary part of exception text;
+	 * wrong option;
+	 */
+	const UNICAT_EXCEPTIONS_SEC_VAR_ARRKDMDFUNCTION1 = 'WARNING: Array dimension %s demands using of this function';
+	/**
+	 * secondary part of exception text;
+	 * wrong option;
+	 */
+	const UNICAT_EXCEPTIONS_SEC_VAR_ARRKDMDFUNCTION2 = 'WARNING: Array dimension %s demands using of function %s';
 	/**
 	 * secondary part of exception text;
 	 * wrong value;
