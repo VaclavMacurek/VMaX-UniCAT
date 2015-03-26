@@ -5,8 +5,8 @@
  *
  * universal classes and traits
  *
- * @author Václav Macùrek <VaclavMacurek@seznam.cz>
- * @copyright 2014 - 2015 Václav Macùrek
+ * @author VÃ¡clav MacÅ¯rek <VaclavMacurek@seznam.cz>
+ * @copyright 2014 - 2015 VÃ¡clav MacÅ¯rek
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  */

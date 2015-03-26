@@ -5,8 +5,8 @@ namespace UniCAT;
 /**
  * @package VMaX-UniCAT
  *
- * @author Václav Macùrek <VaclavMacurek@seznam.cz>
- * @copyright 2014 - 2015 Václav Macùrek
+ * @author VÃ¡clav MacÅ¯rek <VaclavMacurek@seznam.cz>
+ * @copyright 2014 - 2015 VÃ¡clav MacÅ¯rek
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
@@ -180,14 +180,6 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 		{
 			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Exception -> Get_VariableNameAsText(self::$Options), 'empty');
 		}
-	}
-	
-	/**
-	 *
-	 */
-	public static function function_name($param)
-	{
-		;
 	}
 }
 
