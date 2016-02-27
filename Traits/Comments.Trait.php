@@ -15,7 +15,7 @@ namespace UniCAT;
 trait Comments
 {
 	/**
-	 * options
+	 * text of comment and where it will be placed
 	 *
 	 * @static
 	 * @var array
@@ -32,6 +32,9 @@ trait Comments
 	 *
 	 * @throws UniCAT_Exception if comment was not set
 	 * @throws UniCAT_Exception if position setting was set wrong
+	 *
+	 * @example Set_Comment('example comment');
+	 * @example Set_Comment('example comment', UniCAT\UniCAT::UNICAT_OPTION_ABOVE);
 	 */
 	public function Set_Comment($Text="", $Position=UniCAT::UNICAT_OPTION_ABOVE)
 	{
@@ -69,9 +72,15 @@ trait Comments
 	 * @param string $Comments
 	 *
 	 * @return void
+	 *
+	 * @example Add_Comments('example text', static::$Comments);
 	 */
 	public static function Add_Comments(&$Code="", $Comments="")
 	{
+		/*
+		 * extracts namespace related to correct class;
+		 * prepares interface with correct comments (more or less related to class)
+		 */
 		$Namespace = explode('\\', get_class())[0];
 		$Interface = $Namespace.'\I_'.$Namespace.'_Texts_Comments';
 	
@@ -93,16 +102,16 @@ trait Comments
 					$Code = $Code.sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				}
 				break;
-				/*
-				 * both comments were set
-				 */
+			/*
+			 * both comments were set
+			 */
 			case 2:
 				$Code = sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code.sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				break;
-				/*
-				 * no comment was set;
-				 * a bit useless code - only for doing something
-				 */
+			/*
+			 * no comment was set;
+			 * a bit useless code - only for doing something
+			 */
 			default:
 				$Code = $Code;
 				break;

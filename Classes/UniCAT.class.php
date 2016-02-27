@@ -32,9 +32,54 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 		 */
 		self::$Options['booleans'] = $this -> Get_Options("UniCAT\I_UniCAT_Options_Booleans");
 		self::$Options['scalars'] = $this -> Get_Options("UniCAT\I_UniCAT_Options_Scalars");
+		self::$Options['basics'] = $this -> Get_Options("UniCAT\I__UniCAT_Options_Basics");
 		self::$Options['code_export'] = $this -> Get_Options("UniCAT\I_UniCAT_Options_CodeExport");
 		self::$Options['file_writer'] = $this -> Get_Options("UniCAT\I_UniCAT_Options_FileWriter");
 		self::$Options['comments_position'] = $this -> Get_Options("UniCAT\I_UniCAT_Options_CommentsPosition");
+	}
+	
+	/**
+	 * 
+	 */
+	public function __call($Function="", array $Parameters)
+	{
+		try
+		{
+			if(method_exists($this, $Function))
+			{
+				call_user_func_array(array($this, $Function), $Parameters);
+			}
+			else
+			{
+				throw new UniCAT_Exception(UniCAT::UNICAT_EXCEPTIONS_MAIN_CLS, UniCAT::UNICAT_EXCEPTIONS_MAIN_FNC, UniCAT::UNICAT_EXCEPTIONS_SEC_FNC_MISSING1);
+			}
+		}
+		catch(MarC_Exception $Exception)
+		{
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Function);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public static function __callStatic($Function, array $Parameters)
+	{	
+		try
+		{
+			if(method_exists(static::Show_Instance(), $Function))
+			{
+				call_user_func_array($Function, $Parameters);
+			}
+			else
+			{
+				throw new UniCAT_Exception(UniCAT::UNICAT_EXCEPTIONS_MAIN_CLS, UniCAT::UNICAT_EXCEPTIONS_MAIN_FNC, UniCAT::UNICAT_EXCEPTIONS_SEC_FNC_MISSING1);
+			}
+		}
+		catch(UniCAT_Exception $Exception)
+		{
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Function);
+		}
 	}
 	
 	/**
@@ -77,7 +122,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	{
 		/*
 		 * class instance cannot be set wherever
-		*/
+		 */
 		try
 		{
 			if(!empty(self::$Options['scalars']))
@@ -94,6 +139,36 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Exception -> Get_VariableNameAsText(self::$Options), 'empty');
 		}
 	}
+	
+	/**
+	 * show available options of basic types
+	 *
+	 * @return array
+	 *
+	 * @throws UniCAT_Exception if self::$Options was not set (throws fatal error if instance was not set)
+	 */
+	public static function Show_Options_Basics()
+	{
+		/*
+		 * class instance cannot be set wherever
+		 */
+		try
+		{
+			if(!empty(self::$Options['basics']))
+			{
+				return self::$Options['basics'];
+			}
+			else
+			{
+				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_VAR, self::UNICAT_EXCEPTIONS_SEC_VAR_PRHBSTMT);
+			}
+		}
+		catch(UniCAT_Exception $Exception)
+		{
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Exception -> Get_VariableNameAsText(self::$Options), 'empty');
+		}
+	}
+	
 	
 	/**
 	 * shows available options for exporting of code

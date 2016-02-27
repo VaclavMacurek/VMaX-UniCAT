@@ -55,7 +55,10 @@ trait InstanceOptions
 		}
 	}
 	
-	
+	protected function Show_Instance()
+	{
+		return self::$Instance;
+	}
 }
 
 ?>

@@ -28,6 +28,8 @@ trait BasicOptions
 	 * @param string $Source
 	 *
 	 * @return array
+	 *
+	 * @example Get_Options('UniCAT\UniCAT_Options_Scalars');
 	 */
 	protected function Get_Options($Source="")
 	{
@@ -42,6 +44,8 @@ trait BasicOptions
 	 * @return array
 	 *
 	 * @throws UniCAT_Exception if source of constants is not interface
+	 *
+	 * @example Get_Constants('UniCAT\UniCAT_Options_Basics');
 	 */
 	protected function Get_Constants($Source="")
 	{
@@ -70,11 +74,21 @@ trait BasicOptions
 	 * @param string $Source
 	 *
 	 * @return boolean
+	 *
+	 * @example Check_IsInterface('UniCAT\UniCAT_Options_Basics');
 	 */
 	protected function Check_IsInterface($Source="")
 	{
 		$Scope = new ClassScope($Source);
 		return $Scope -> isInterface();
+	}
+	
+	protected function Get_Functions($Source="")
+	{
+		$Functions = array();
+		
+		$Scope = new ClassScope($Source);
+		return $Scope -> getMethods();
 	}
 }
 

@@ -10,7 +10,7 @@ namespace UniCAT;
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
- * interface of exceptions texts forms
+ * interface of exceptions texts
  */
 interface I_UniCAT_Texts_Exceptions
 {
@@ -275,6 +275,16 @@ interface I_UniCAT_Texts_Exceptions
 	 * wrong usage order
 	 */
 	const UNICAT_EXCEPTIONS_SEC_FNC_DMDORDER = 'WARNING: This function demands using of function %s';
+	/**
+	 * secondary part of exception text;
+	 * missing function
+	 */
+	const UNICAT_EXCEPTIONS_SEC_FNC_MISSING1 = 'WARNING: Function %s does not exists';
+	/**
+	 * secondary part of exception text;
+	 * missing function
+	 */
+	const UNICAT_EXCEPTIONS_SEC_FNC_MISSING2 = 'WARNING: This function does not exists';
 	/**
 	 * secondary part of exception text;
 	 * wrong type of source;

@@ -24,6 +24,8 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 	 * @return void
 	 *
 	 * @throws UniCAT_Exception if message was not set
+	 *
+	 * @example UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
 	 */
 	public function __construct($Message="")
 	{
@@ -55,6 +57,8 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 	 * @return void
 	 *
 	 * @throws UniCAT_Exception if warning placeholders were not set
+	 *
+	 * @example ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__), $Warning);
 	 */
 	public function ExceptionWarning($Warning="")
 	{
@@ -77,15 +81,15 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		 * converts accidentally used arrays into text;
 		 * replaces chosen signs into entities
 		 */
-		for($Order = 0; $Order < count($Warning); $Order++)
+		for($Index = 0; $Index < count($Warning); $Index++)
 		{
-			if(is_array($Warning[$Order]))
+			if(is_array($Warning[$Index]))
 			{
-				$Warning[$Order] = htmlspecialchars(implode(", ", $Warning[$Order]));
+				$Warning[$Index] = htmlspecialchars(implode(", ", $Warning[$Index]));
 			}
 			else
 			{
-				$Warning[$Order] = htmlspecialchars($Warning[$Order]);
+				$Warning[$Index] = htmlspecialchars($Warning[$Index]);
 			}
 		}
 		
@@ -111,8 +115,8 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		 */
 		$Extension = debug_backtrace();
 		$Extension = array(	sprintf(self::UNICAT_EXCEPTIONS_MAIN_FILE, $Extension[1]['file']),
-							sprintf(self::UNICAT_EXCEPTIONS_MAIN_LINE, $Extension[1]['line'])
-							);
+						sprintf(self::UNICAT_EXCEPTIONS_MAIN_LINE, $Extension[1]['line'])
+						);
 		
 		/*
 		 * converts additional informations into text
@@ -154,9 +158,9 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		 * inserts new line sign to the front of each part of exception messages;
 		 * additional new line in the front of the first part separates from previous code
 		 */
-		for($Order = 0; $Order < count($Message); $Order++)
+		for($Index = 0; $Index < count($Message); $Index++)
 		{
-			$Message[$Order] = "\n".$Message[$Order];
+			$Message[$Index] = "\n".$Message[$Index];
 		}
 		
 		return $Message;
@@ -188,11 +192,11 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		/*
 		 * inserts quotes around texts inserted into WARNING part
 		 */
-		for($Order = 0; $Order < count($Message); $Order++)
+		for($Index = 0; $Index < count($Message); $Index++)
 		{
-			if(preg_match('/WARNING\:/', $Message[$Order]))
+			if(preg_match('/WARNING\:/', $Message[$Index]))
 			{
-				$Message[$Order] = preg_replace('/(\%s|\%d)/', '&ldquo; $1 &rdquo;', $Message[$Order]);
+				$Message[$Index] = preg_replace('/(\%s|\%d)/', '&ldquo; $1 &rdquo;', $Message[$Index]);
 			}
 		}
 		
