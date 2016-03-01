@@ -13,49 +13,7 @@ namespace UniCAT;
  * trait of functions for getting informations used in exceptions
  */
 trait ErrorOptions
-{
-	/**
-	 * gets parameters of chosen function of chosen class
-	 *
-	 * @param string $Class
-	 * @param string $Method
-	 *
-	 * @return mixed array|string
-	 */
-	public function Get_Parameters($Class="", $Method="")
-	{
-		$Scope = new MethodScope($Class, $Method);
-		$Params = $Scope -> getParameters();
-		
-		/*
-		 * conversion of result given by core function getParameters into array
-		 */
-		for($Order = 0; $Order < count($Params); $Order++)
-		{
-			$Params[$Order] = (array) $Params[$Order];
-		}
-		
-		/*
-		 * extracts names of parameters
-		 */
-		for($Order = 0; $Order < count($Params); $Order++)
-		{
-			$Params[$Order] = $Params[$Order]['name'];
-		}
-		
-		/*
-		 * returns only parameter name, if function has only one parameter
-		 */
-		if(count($Params) == 1)
-		{
-			return $Params[0];
-		}
-		else
-		{
-			return $Params;
-		}
-	}
-	
+{	
 	/**
 	 * gets name of function that is using current function
 	 *
@@ -77,6 +35,8 @@ trait ErrorOptions
 	 * @return string
 	 *
 	 * @throws UniCAT_Exception if $Index was not set as integer
+	 *
+	 * @example Get_VariableNameAsText($Variable, '0')
 	 */
 	public function Get_VariableNameAsText($Variable="", $Index="")
 	{
@@ -94,7 +54,7 @@ trait ErrorOptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__)[1], gettype($Index), 'integer');
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1], gettype($Index), 'integer');
 		}
 		
 		/*

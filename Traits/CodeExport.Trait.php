@@ -43,6 +43,10 @@ trait CodeExport
 	 *
 	 * @return void
 	 * @throws UniCAT_Exception
+	 *
+	 * @example Set_ExportWay();
+	 * @example Set_ExportWay(UniCAT\UniCAT::UNICAT_OPTION_END);
+	 * @example Set_ExportWay('write');
 	 */
 	public static function Set_ExportWay($Way="")
 	{
@@ -66,7 +70,7 @@ trait CodeExport
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Exception -> Get_Parameters(get_called_class(), __FUNCTION__), UniCAT::Show_Options_CodeExport());
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), UniCAT::Show_Options_CodeExport());
 		}
 	}
 	

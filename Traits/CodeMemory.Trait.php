@@ -31,6 +31,8 @@ trait CodeMemory
 	 * @throws UniCAT_Exception if code was not set as string
 	 * @throws UniCAT_Exception if class name was not set
 	 * @throws UniCAT_Exception if class name was not found
+	 *
+	 * @example Convert_Code($String, __CLASS__);
 	 */
 	public static function Convert_Code($Code="", $Class="")
 	{
@@ -43,7 +45,7 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__)[0][0]);
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[0]);
 		}
 		
 		try
@@ -55,9 +57,9 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__)[0], gettype($Code), 'string');
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[0], gettype($Code), 'string');
 		}
-		
+				
 		try
 		{
 			if(empty($Class))
@@ -67,7 +69,7 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__)[1]);
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1]);
 		}
 		
 		try
@@ -79,9 +81,13 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__)[1], 'class '.$Class);
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1], 'class '.$Class);
 		}
-		
+
+		/*
+		 * closes code into many levels defined by name of classes;
+		 * prevents meeting of unrelated code
+		 */
 		switch(self::$ExportWay)
 		{
 			/*
@@ -89,7 +95,7 @@ trait CodeMemory
 			 */
 			case UniCAT::UNICAT_OPTION_END:
 				self::$Code[$Class][] = $Code;
-				$Text = (self::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", implode('', self::$Code[$Class])) : implode('', self::$Code[$Class]);
+				$Text = (static::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", implode('', self::$Code[$Class])) : implode('', self::$Code[$Class]);
 				self::$Code = array();
 				echo $Text;
 				break;
@@ -98,7 +104,7 @@ trait CodeMemory
 			 */
 			case UniCAT::UNICAT_OPTION_STEP:
 				self::$Code[$Class][] = $Code;
-				$Text = (self::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", implode('', self::$Code[$Class])) : implode('', self::$Code[$Class]);
+				$Text = (static::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", implode('', self::$Code[$Class])) : implode('', self::$Code[$Class]);
 				self::$Code[$Class] = array();
 				return $Text;
 				break;
@@ -115,7 +121,7 @@ trait CodeMemory
 				self::$Code[$Class][] = $Code;
 				for($Order = 0; $Order < count(self::$Code[$Class]); $Order++)
 				{
-					self::$Code[$Class][$Order] = (self::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", self::$Code[$Class][$Order]) : self::$Code[$Class][$Order];
+					self::$Code[$Class][$Order] = (static::$Disable_MultipleNewLines == TRUE) ? preg_replace('/([\n]+)/', "\n", self::$Code[$Class][$Order]) : self::$Code[$Class][$Order];
 				}
 		}
 	}

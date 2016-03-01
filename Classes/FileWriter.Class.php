@@ -41,6 +41,8 @@ final class FileWriter
 	 * @return void
 	 *
 	 * @throws UniCAT_Exception if file name was not set
+	 *
+	 * @example FileWriter('Example.txt');
 	 */
 	public function __construct($File="")
 	{
@@ -53,7 +55,7 @@ final class FileWriter
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__));
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
 		}
 		
 		$this -> File = $File;
@@ -67,6 +69,9 @@ final class FileWriter
 	 * @return void
 	 *
 	 * @throws UniCAT_Exception if mode was set by wrong option
+	 *
+	 * @example Set_Mode('a');
+	 * @example Set_Mode(UniCAT\UniCAT::UNICAT_OPTION_ADD);
 	 */
 	public function Set_Mode($Mode=NULL)
 	{
@@ -79,7 +84,7 @@ final class FileWriter
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__), UniCAT::Show_Options_FileWriter());
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), UniCAT::Show_Options_FileWriter());
 		}
 		
 		$this -> Mode = $Mode;
@@ -91,6 +96,8 @@ final class FileWriter
 	 * @param string $Content
 	 *
 	 * @throws UniCAT_Exception if content was not set as string
+	 *
+	 * @example Set_Content('example');
 	 */
 	public function Set_Content($Content=NULL)
 	{
@@ -103,12 +110,11 @@ final class FileWriter
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $Exception -> Get_Parameters(__CLASS__, __FUNCTION__), gettype($Content), UniCAT::Show_Options_Scalars());
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), gettype($Content), UniCAT::Show_Options_Scalars());
 		}
 		
 		$this -> Content = $Content;
 	}
-	
 		
 	/**
 	 * writing of file

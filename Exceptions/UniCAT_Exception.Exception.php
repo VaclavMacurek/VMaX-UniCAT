@@ -40,7 +40,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__));
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
 		}
 		
 		/*
@@ -74,7 +74,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__), $Warning);
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), $Warning);
 		}
 		
 		/*
@@ -102,7 +102,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__), $Message);
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), $Message);
 		}
 		
 		/*
@@ -151,7 +151,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__));
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
 		}
 		
 		/*
@@ -186,7 +186,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__));
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
 		}
 		
 		/*

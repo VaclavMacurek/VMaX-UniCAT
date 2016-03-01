@@ -30,7 +30,6 @@ require_once (UNICAT_ADR."Interfaces/ExceptionsTexts.Interfaces.php");
  * Traits
  */
 require_once (UNICAT_ADR."Traits/InstanceOptions.Trait.php");
-require_once (UNICAT_ADR."Traits/BasicOptions.Trait.php");
 require_once (UNICAT_ADR."Traits/ErrorOptions.Trait.php");
 require_once (UNICAT_ADR."Traits/CodeMemory.Trait.php");
 require_once (UNICAT_ADR."Traits/CodeExport.Trait.php");

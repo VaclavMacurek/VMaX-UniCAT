@@ -46,8 +46,8 @@ trait InstanceOptions
 	 */
 	private static function Set_Instance()
 	{
-		$Class = get_class();
-		
+		$Class = get_called_class();
+
 		if(self::Check_IsInstanced() == FALSE)
 		{
 			self::$Instance = new $Class();
