@@ -100,7 +100,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), $Exception -> Get_CallerFunctionName(), $Function);
+			$Exception -> ExceptionWarning(get_called_class(), $this -> Get_CallerFunctionName(), $Function);
 		}
 	}
 
