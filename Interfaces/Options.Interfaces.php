@@ -6,7 +6,7 @@ namespace UniCAT;
  * @package VMaX-UniCAT
  *
  * @author Václav Macůrek <VaclavMacurek@seznam.cz>
- * @copyright 2014 - 2015 Václav Macůrek
+ * @copyright 2014 - 2016 Václav Macůrek
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
@@ -32,6 +32,14 @@ interface I_UniCAT_Options_Scalars
 	const UNICAT_OPTION_STRING = 'string';
 	const UNICAT_OPTION_INTEGER = 'integer';
 	const UNICAT_OPTION_DOUBLE = 'double';
+}
+
+/**
+ * options for basic variables (scalars extended of array)
+ */
+interface I__UniCAT_Options_Basics extends I_UniCAT_Options_Scalars
+{
+	const UNICAT_OPTION_ARRAY = 'array';
 }
 
 /**
