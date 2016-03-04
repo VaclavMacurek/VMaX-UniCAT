@@ -12,7 +12,7 @@ namespace UniCAT;
  *
  * exception class
  */
-class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
+class UniCAT_Exception extends \Exception
 {
 	use ErrorOptions;
 	
@@ -25,7 +25,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 	 *
 	 * @throws UniCAT_Exception if message was not set
 	 *
-	 * @example UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
+	 * @example UniCAT_Exception(self::UNICAT_XCPT_MAIN_CLS, self::UNICAT_XCPT_MAIN_FNC, self::UNICAT_XCPT_MAIN_PRM, self::UNICAT_XCPT_SEC_PRM_MISSING);
 	 */
 	public function __construct($Message="")
 	{
@@ -35,7 +35,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		{
 			if(count($Message) == 0)
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
@@ -69,7 +69,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		{
 			if(empty($Warning))
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
@@ -97,7 +97,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		{
 			if(substr_count($Message, '%') != count($Warning))
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_WRONGFORM);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_WRONGFORM);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
@@ -114,8 +114,8 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		 * prepares additional informations for final exception messages
 		 */
 		$Extension = debug_backtrace();
-		$Extension = array(	sprintf(self::UNICAT_EXCEPTIONS_MAIN_FILE, $Extension[1]['file']),
-						sprintf(self::UNICAT_EXCEPTIONS_MAIN_LINE, $Extension[1]['line'])
+		$Extension = array(	sprintf(self::UNICAT_XCPT_MAIN_FILE, $Extension[1]['file']),
+						sprintf(self::UNICAT_XCPT_MAIN_LINE, $Extension[1]['line'])
 						);
 		
 		/*
@@ -132,7 +132,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 	}
 	
 	/**
-	 * adds new line breaks into exception message - for easier reading (only after displaying of code)
+	 * adds new line breaks into exception message - for easier reading (after displaying of code)
 	 *
 	 * @param string $Message
 	 *
@@ -146,7 +146,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		{
 			if(empty($Message))
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
@@ -181,7 +181,7 @@ class UniCAT_Exception extends \Exception implements I_UniCAT_Texts_Exceptions
 		{
 			if(empty($Message))
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_PRM, self::UNICAT_EXCEPTIONS_SEC_PRM_MISSING);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
 		}
 		catch(UniCAT_Exception $Exception)

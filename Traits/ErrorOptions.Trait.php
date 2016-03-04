@@ -10,7 +10,7 @@ namespace UniCAT;
  *
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
- * trait of functions for getting informations used in exceptions
+ * trait of functions for getting informations used in XCPT
  */
 trait ErrorOptions
 {	
@@ -49,7 +49,7 @@ trait ErrorOptions
 		{
 			if(!empty($Index) && !is_integer($Index))
 			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_EXCEPTIONS_MAIN_CLS, UniCAT::UNICAT_EXCEPTIONS_MAIN_FNC, UniCAT::UNICAT_EXCEPTIONS_MAIN_PRM, UniCAT::UNICAT_EXCEPTIONS_SEC_PRM_WRONGVALTYPE);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_WRONGVALTYPE);
 			}
 		}
 		catch(UniCAT_Exception $Exception)

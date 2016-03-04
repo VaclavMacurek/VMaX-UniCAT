@@ -26,8 +26,6 @@ final class MethodScope extends \ReflectionMethod
 	 */
 	public static function Get_Parameters($Class="", $Method="")
 	{
-		
-
 		$Scope = new MethodScope($Class, $Method);
 		$Params = $Scope -> getParameters();
 

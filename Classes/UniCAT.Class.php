@@ -58,7 +58,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 			}
 			else
 			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_EXCEPTIONS_MAIN_CLS, UniCAT::UNICAT_EXCEPTIONS_MAIN_FNC, UniCAT::UNICAT_EXCEPTIONS_SEC_FNC_MISSING1);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
 			}
 		}
 		catch(MarC_Exception $Exception)
@@ -95,7 +95,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 			}
 			else
 			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_EXCEPTIONS_MAIN_CLS, UniCAT::UNICAT_EXCEPTIONS_MAIN_FNC, UniCAT::UNICAT_EXCEPTIONS_SEC_FNC_MISSING1);
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
@@ -128,7 +128,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 			}
 			else
 			{
-				throw new UniCAT_Exception(self::UNICAT_EXCEPTIONS_MAIN_CLS, self::UNICAT_EXCEPTIONS_MAIN_FNC, self::UNICAT_EXCEPTIONS_MAIN_VAR, self::UNICAT_EXCEPTIONS_SEC_VAR_PRHBSTMT);
+				throw new UniCAT_Exception(self::UNICAT_XCPT_MAIN_CLS, self::UNICAT_XCPT_MAIN_FNC, self::UNICAT_XCPT_MAIN_VAR, self::UNICAT_XCPT_SEC_VAR_PRHBSTMT);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
