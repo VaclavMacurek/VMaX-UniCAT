@@ -85,7 +85,9 @@ class UniCAT_Exception extends \Exception
 		{
 			if(is_array($Warning[$Index]))
 			{
-				$Warning[$Index] = htmlspecialchars(implode(", ", $Warning[$Index]));
+				$Warning[$Index] = implode(",\n\t", $Warning[$Index]);
+				$Length = strlen($Warning[$Index])+4;
+				$Warning[$Index] = htmlspecialchars(str_pad($Warning[$Index], $Length, "\n\t", STR_PAD_BOTH));
 			}
 			else
 			{
@@ -114,8 +116,8 @@ class UniCAT_Exception extends \Exception
 		 * prepares additional informations for final exception messages
 		 */
 		$Extension = debug_backtrace();
-		$Extension = array(	sprintf(self::UNICAT_XCPT_MAIN_FILE, $Extension[1]['file']),
-						sprintf(self::UNICAT_XCPT_MAIN_LINE, $Extension[1]['line'])
+		$Extension = array(	sprintf(UniCAT::UNICAT_XCPT_MAIN_FILE, $Extension[1]['file']),
+						sprintf(UniCAT::UNICAT_XCPT_MAIN_LINE, $Extension[1]['line'])
 						);
 		
 		/*
