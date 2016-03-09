@@ -11,6 +11,13 @@ namespace UniCAT;
  * @license GNU LESSER GENERAL PUBLIC LICENSE version 3.0
  *
  * class for easy access to class constants of chosen interfaces
+ *
+ * @method array Show_options_Booleans(); show boolean options, only for special uses
+ * @method array Show_Options_Scalars(); show selected scalar types
+ * @method array Show_Options_Basics(); show selected basic types
+ * @method array Show_Options_CodeExport(); show options how code will be handled (written to screen, saved in static variable, ...)
+ * @method array Show_Options_FileWriter(); show selected options for writing of file
+ * @method array Show_Options_CommentsPosition(); show options for position of comment
  */
 class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter, I_UniCAT_Texts_Exceptions, I_UniCAT_Options_CommentsPosition
 {
@@ -28,9 +35,8 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	}
 	
 	/**
-	 * prepares lists of options
-	 *
-	 * @return void
+	 * prepares lists of options;
+	 * reads chosen interfaces and saves values of constants
 	 */
 	public function __construct()
 	{
@@ -46,61 +52,51 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	}
 	
 	/**
-	 * 
-	 */
-	public function __call($Function, array $Parameters)
-	{
-		try
-		{
-			if(method_exists($this, $Function))
-			{
-				call_user_func_array(array($this, $Function), $Parameters);
-			}
-			else
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
-			}
-		}
-		catch(MarC_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, $Function);
-		}
-	}
-	
-	/**
-	 * allows to use functions Show_Options_[suffix]
+	 * allows to use functions Show_Options_[suffix];
+	 * prevents calling of non-public functions from external scope
 	 *
 	 * @param string $Function name of function
 	 * @param array $Parameters function's parameters
 	 *
 	 * @return array|mixed return is related to real function called by this magic function
 	 */
-	public static function __callStatic($Function, array $Parameters)
-	{
+	public static function __callStatic($Method, $Parameters)
+	{		
 		$Options = array();
-		$Result = preg_match('/Show_Options_(?<Option>([[:upper:]][[:lower:]]+)+)/', $Function, $Options);
+		$Error = 0;
+		$Result = preg_match('/Show_Options_(?<Option>([[:upper:]][[:lower:]]+)+)/', $Method, $Options);
 
 		try
 		{
-			if(method_exists(static::Show_Instance(), $Function))
+			if(method_exists(get_called_class(), $Method))
 			{
-				call_user_func_array($Function, $Parameters);
-			}
-			elseif($Result)
-			{
-				$Option = preg_split('/((?:^|[A-Z])[a-z]+)/', $Options['Option'], NULL, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
-				$Option = strtolower(implode('_', $Option));
-
-				return self::Show_Options($Option);
+				if(MethodScope::Check_IsPublic(__CLASS__, $Method))
+				{
+					call_user_func_array($Method, $Parameters);
+				}
+				else
+				{
+					throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_PRHBUSE1);
+				}
 			}
 			else
 			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
+				if($Result)
+				{
+					$Option = preg_split('/((?:^|[A-Z])[a-z]+)/', $Options['Option'], NULL, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+					$Option = strtolower(implode('_', $Option));
+
+					return self::Show_Options($Option);
+				}
+				else
+				{
+					throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
+				}
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), $this -> Get_CallerFunctionName(), $Function);
+			$Exception -> ExceptionWarning(get_called_class(), $Method);
 		}
 	}
 
@@ -114,12 +110,11 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	 * @return array values attached to key given by parameter
 	 *
 	 * @throws UniCAT_Exception if array self::$Options is not ready
+	 *
+	 * @example Show_options('basics'); to get basic variable types
 	 */
 	protected static function Show_Options($Option)
 	{
-		/*
-		 * class instance cannot be set wherever
-		 */
 		try
 		{
 			if(!empty(self::$Options[$Option]))

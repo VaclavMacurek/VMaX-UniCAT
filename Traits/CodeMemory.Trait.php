@@ -34,20 +34,8 @@ trait CodeMemory
 	 *
 	 * @example Convert_Code($String, __CLASS__);
 	 */
-	public static function Convert_Code($Code="", $Class="")
-	{
-		try
-		{
-			if(empty($Code))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[0]);
-		}
-		
+	public static function Convert_Code($Code, $Class)
+	{	
 		try
 		{
 			if(!is_string($Code))
@@ -57,19 +45,7 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[0], gettype($Code), 'string');
-		}
-				
-		try
-		{
-			if(empty($Class))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1]);
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), gettype($Code), 'string');
 		}
 		
 		try
@@ -81,7 +57,7 @@ trait CodeMemory
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1], 'class '.$Class);
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__, 1), 'class '.$Class);
 		}
 
 		/*

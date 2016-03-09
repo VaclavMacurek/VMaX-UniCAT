@@ -36,20 +36,8 @@ trait Comments
 	 * @example Set_Comment('example comment');
 	 * @example Set_Comment('example comment', UniCAT\UniCAT::UNICAT_OPTION_ABOVE);
 	 */
-	public function Set_Comment($Text="", $Position=UniCAT::UNICAT_OPTION_ABOVE)
+	public function Set_Comment($Text, $Position=UniCAT::UNICAT_OPTION_ABOVE)
 	{
-		try
-		{
-			if(empty($Text))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[0]);
-		}
-	
 		try
 		{
 			if(!in_array($Position, UniCAT::Show_Options_CommentsPosition()))
@@ -59,7 +47,7 @@ trait Comments
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1], UniCAT::Show_Options_CommentPosition());
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__, 1), UniCAT::Show_Options_CommentPosition());
 		}
 	
 		static::$Comments[$Position] = $Text;
@@ -68,14 +56,14 @@ trait Comments
 	/**
 	 * add comments into final code
 	 *
-	 * @param string $Code
-	 * @param string $Comments
+	 * @param string $Code generated code for inserting of comments
+	 * @param array $Comments comments for insereting into code
 	 *
 	 * @return void
 	 *
 	 * @example Add_Comments('example text', static::$Comments);
 	 */
-	public static function Add_Comments(&$Code="", $Comments="")
+	public static function Add_Comments(&$Code, $Comments="")
 	{
 		/*
 		 * extracts namespace related to correct class;
@@ -99,7 +87,7 @@ trait Comments
 				}
 				else
 				{
-					$Code = $Code.sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
+					$Code .= sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				}
 				break;
 			/*

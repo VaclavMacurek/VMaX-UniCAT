@@ -25,11 +25,11 @@ trait InstanceOptions
 	/**
 	 * finds if instance is ready or not
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	private static function Check_IsInstanced()
 	{
-		if(self::$Instance === NULL)
+		if(static::$Instance === NULL)
 		{
 			return FALSE;
 		}
@@ -46,18 +46,18 @@ trait InstanceOptions
 	 */
 	private static function Set_Instance()
 	{
-		$Class = get_called_class();
+		$Class = get_class();
 
 		if(self::Check_IsInstanced() == FALSE)
 		{
-			self::$Instance = new $Class();
-			return self::$Instance;
+			static::$Instance = new $Class();
+			return static::$Instance;
 		}
 	}
 	
 	protected function Show_Instance()
 	{
-		return self::$Instance;
+		return static::$Instance;
 	}
 }
 

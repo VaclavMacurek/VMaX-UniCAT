@@ -279,12 +279,22 @@ interface I_UniCAT_Texts_Exceptions
 	 * secondary part of exception text;
 	 * missing function
 	 */
-	const UNICAT_XCPT_SEC_FNC_MISSING1 = 'WARNING: Function %s does not exists';
+	const UNICAT_XCPT_SEC_FNC_MISSING1 = 'WARNING: This function does not exists';
 	/**
 	 * secondary part of exception text;
 	 * missing function
 	 */
-	const UNICAT_XCPT_SEC_FNC_MISSING2 = 'WARNING: This function does not exists';
+	const UNICAT_XCPT_SEC_FNC_MISSING2 = 'WARNING: Function %s does not exists';
+	/**
+	 * secondary part of exception text;
+	 * wrong used function - only public may be used
+	 */
+	const UNICAT_XCPT_SEC_FNC_PRHBUSE1 = 'WARNING: This function is not public';
+	/**
+	 * secondary part of exception text;
+	 * wrong used function - only public may be used
+	 */
+	const UNICAT_XCPT_SEC_FNC_PRHBUSE2 = 'WARNING: Function %s is not public';
 	/**
 	 * secondary part of exception text;
 	 * wrong type of source;

@@ -25,22 +25,22 @@ class UniCAT_Exception extends \Exception
 	 *
 	 * @throws UniCAT_Exception if message was not set
 	 *
-	 * @example UniCAT_Exception(self::UNICAT_XCPT_MAIN_CLS, self::UNICAT_XCPT_MAIN_FNC, self::UNICAT_XCPT_MAIN_PRM, self::UNICAT_XCPT_SEC_PRM_MISSING);
+	 * @example UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING); to tell that parameter value (argument) was not set
 	 */
-	public function __construct($Message="")
+	public function __construct($Message)
 	{
 		$Message = func_get_args();
 		
 		try
 		{
-			if(count($Message) == 0)
+			if(empty($Message[0]))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__));
 		}
 		
 		/*
@@ -56,26 +56,14 @@ class UniCAT_Exception extends \Exception
 	 *
 	 * @return void
 	 *
-	 * @throws UniCAT_Exception if warning placeholders were not set
+	 * @throws UniCAT_Exception if warning placeholders do not match message given to exception constructor
 	 *
-	 * @example ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_Parameters(__CLASS__, __FUNCTION__), $Warning);
+	 * @example ExceptionWarning(get_called_class(), __FUNCTION__, $this -> Get_ParameterName(__CLASS__, __FUNCTION__), $Warning);
 	 */
-	public function ExceptionWarning($Warning="")
+	public function ExceptionWarning($Warning)
 	{
 		$Warning = func_get_args();
 		$Message = $this -> getMessage();
-		
-		try
-		{
-			if(empty($Warning))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), $Warning);
-		}
 		
 		/*
 		 * converts accidentally used arrays into text;
@@ -104,7 +92,7 @@ class UniCAT_Exception extends \Exception
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), $Message);
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), $Message);
 		}
 		
 		/*
@@ -139,23 +127,9 @@ class UniCAT_Exception extends \Exception
 	 * @param string $Message
 	 *
 	 * @return array
-	 *
-	 * @throws UniCAT_Exception if message was not set
 	 */
-	private function Convert_AddNewLineSign($Message="")
+	private function Convert_AddNewLineSign($Message)
 	{
-		try
-		{
-			if(empty($Message))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
-		}
-		
 		/*
 		 * inserts new line sign to the front of each part of exception messages;
 		 * additional new line in the front of the first part separates from previous code
@@ -177,20 +151,8 @@ class UniCAT_Exception extends \Exception
 	 *
 	 * @throws UniCAT_Exception if message was not set
 	 */
-	private function Convert_AddQuotes($Message="")
+	private function Convert_AddQuotes($Message)
 	{
-		try
-		{
-			if(empty($Message))
-			{
-				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
-			}
-		}
-		catch(UniCAT_Exception $Exception)
-		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__));
-		}
-		
 		/*
 		 * inserts quotes around texts inserted into WARNING part
 		 */
@@ -212,7 +174,7 @@ class UniCAT_Exception extends \Exception
 	 *
 	 * @return string
 	 */
-	private function Convert_AssembleExceptionText($Message="")
+	private function Convert_AssembleExceptionText($Message)
 	{
 		$Message = $this -> Convert_AddQuotes($Message);
 		$Message = $this -> Convert_AddNewLineSign($Message);

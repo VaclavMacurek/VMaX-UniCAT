@@ -39,46 +39,36 @@ trait CodeExport
 	 * setting of type of code export;
 	 * default option is "write"
 	 *
-	 * @param string $Type
+	 * @param string $Way way of export
 	 *
-	 * @return void
-	 * @throws UniCAT_Exception
+	 * @throws UniCAT_Exception if wrong value was used to set way of export
 	 *
-	 * @example Set_ExportWay();
-	 * @example Set_ExportWay(UniCAT\UniCAT::UNICAT_OPTION_END);
-	 * @example Set_ExportWay('write');
+	 * @example Set_ExportWay(); to set that code will be written to screen
+	 * @example Set_ExportWay(UniCAT\UniCAT::UNICAT_OPTION_END); to set that code will be written to screen
+	 * @example Set_ExportWay('write'); to set that code will be written to screen
 	 */
-	public static function Set_ExportWay($Way="")
+	public static function Set_ExportWay($Way=UniCAT::UNICAT_OPTION_END)
 	{
 		try
 		{
-			if(empty($Way))
+			if(in_array(strtolower($Way), UniCAT::Show_Options_CodeExport()))
 			{
-				static::$ExportWay = UniCAT::UNICAT_OPTION_END;
+				self::$ExportWay = $Way;
 			}
 			else
 			{
-				if(in_array(strtolower($Way), UniCAT::Show_Options_CodeExport()))
-				{
-					static::$ExportWay = $Way;
-				}
-				else
-				{
-					throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_DMDOPTION);
-				}
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_DMDOPTION);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__), UniCAT::Show_Options_CodeExport());
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), UniCAT::Show_Options_CodeExport());
 		}
 	}
 	
 	/**
 	 * disables multiple new lines;
 	 * two or more multiple new lines will be replaced with only single new line
-	 *
-	 * @return void
 	 */
 	public static function Set_DisableMultipleNewLines()
 	{
@@ -88,8 +78,6 @@ trait CodeExport
 	/**
 	 * enables multiple new lines;
 	 * two or more multiple new lines will not be replaced with only single new line
-	 *
-	 * @return void
 	 */
 	public static function Set_EnableMultipleNewLines()
 	{

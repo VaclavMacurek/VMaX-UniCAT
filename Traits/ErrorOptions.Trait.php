@@ -36,9 +36,10 @@ trait ErrorOptions
 	 *
 	 * @throws UniCAT_Exception if $Index was not set as integer
 	 *
-	 * @example Get_VariableNameAsText($Variable, '0')
+	 * @example Get_VariableNameAsText($Variable);
+	 * @example Get_VariableNameAsText($Variable, 1);
 	 */
-	public function Get_VariableNameAsText($Variable="", $Index="")
+	public function Get_VariableNameAsText($Variable, $Index=0)
 	{
 		/*
 		 * gets name of file where function was called
@@ -47,14 +48,14 @@ trait ErrorOptions
 		
 		try
 		{
-			if(!empty($Index) && !is_integer($Index))
+			if(!is_integer($Index))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_WRONGVALTYPE);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_Parameters(__CLASS__, __FUNCTION__)[1], gettype($Index), 'integer');
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__, 1), gettype($Index), 'integer');
 		}
 		
 		/*
@@ -74,14 +75,7 @@ trait ErrorOptions
 				/*
 				 * using of index allows more callings of function per line
 				 */
-				if(empty($Index))
-				{
-					return $VariableName[0]['type'].$VariableName[0]['variable'];
-				}
-				else
-				{
-					return $VariableName[$Index]['type'].$VariableName[$Index]['variable'];
-				}
+				return $VariableName[$Index]['type'].$VariableName[$Index]['variable'];
 			}
 		}
 	}
