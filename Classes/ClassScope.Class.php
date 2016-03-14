@@ -97,8 +97,6 @@ final class ClassScope extends \ReflectionClass
 	 */
 	public static function Get_ConstantsNames($Source)
 	{
-		$Namespace = explode('\\', get_class())[0];
-
 		try
 		{
 			if(self::Check_IsInterface($Source))
@@ -115,6 +113,194 @@ final class ClassScope extends \ReflectionClass
 		{
 			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), 'interface');
 		}
+	}
+
+	/**
+	 * gets list of public functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_PublicMethods($Source)
+	{
+		$Methods = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PUBLIC) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods[] = $Method -> name;
+			}
+		}
+		
+		return $Methods;
+ 	}
+
+	/**
+	 * gets list of protected functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_ProtectedMethods($Source)
+	{
+		$Methods = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PROTECTED) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods[] = $Method -> name;
+			}
+		}
+
+		return $Methods;
+ 	}
+
+	/**
+	 * gets list of protected functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_PrivateMethods($Source)
+	{
+		$Methods = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PRIVATE) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods[] = $Method -> name;
+			}
+		}
+
+		return $Methods;
+ 	}
+
+	/**
+	 * gets list of public static functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_PublicStaticMethods($Source)
+	{
+		$Methods_Public = array();
+		$Methods_Static = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PUBLIC) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Public[] = $Method -> name;
+			}
+		}
+
+		foreach($Scope -> getMethods(MethodScope::IS_STATIC) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Static[] = $Method -> name;
+			}
+		}
+
+		return array_intersect($Methods_Public, $Methods_Static);
+ 	}
+
+	/**
+	 * gets list of protected static functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_ProtectedStaticMethods($Source)
+	{
+		$Methods_Protected = array();
+		$Methods_Static = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PROTECTED) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Protected[] = $Method -> name;
+			}
+		}
+
+		foreach($Scope -> getMethods(MethodScope::IS_STATIC) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Static[] = $Method -> name;
+			}
+		}
+
+		return array_intersect($Methods_Protected, $Methods_Static);
+ 	}
+
+	/**
+	 * gets list of protected static functions
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_PrivateStaticMethods($Source)
+	{
+		$Methods_Private = array();
+		$Methods_Static = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods(MethodScope::IS_PRIVATE) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Private[] = $Method -> name;
+			}
+		}
+
+		foreach($Scope -> getMethods(MethodScope::IS_STATIC) as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods_Static[] = $Method -> name;
+			}
+		}
+
+		return array_intersect($Methods_Private, $Methods_Static);
+ 	}
+
+	/**
+	 * gets list of all functions (it means if it is public, protected or private)
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_AllMethods($Source)
+	{
+		$Methods = array();
+		$Scope = new ClassScope($Source);
+
+		foreach($Scope -> getMethods() as $Method)
+		{
+			if($Method -> class == $Source)
+			{
+				$Methods[] = $Method -> name;
+			}
+		}
+
+		return $Methods;
 	}
 
 	/**
