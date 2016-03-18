@@ -104,8 +104,9 @@ class UniCAT_Exception extends \Exception
 		 * prepares additional informations for final exception messages
 		 */
 		$Extension = debug_backtrace();
-		$Extension = array(	sprintf(UniCAT::UNICAT_XCPT_MAIN_FILE, $Extension[1]['file']),
-						sprintf(UniCAT::UNICAT_XCPT_MAIN_LINE, $Extension[1]['line'])
+
+		$Extension = array(	sprintf(UniCAT::UNICAT_XCPT_MAIN_FILE, (isset($Extension[1]['file']) ? $Extension[1]['file'] : $Extension[2]['file'])),
+						sprintf(UniCAT::UNICAT_XCPT_MAIN_LINE, (isset($Extension[1]['line']) ? $Extension[1]['line'] : $Extension[2]['line']) )
 						);
 		
 		/*
@@ -117,7 +118,7 @@ class UniCAT_Exception extends \Exception
 		/*
 		 * implodes base exception message with additional informations
 		 */
-		echo $Message."\n\nPlace of exception:".$Extension;
+		echo get_called_class().":\n".$Message."\n\nPlace of exception:".$Extension;
 		exit();
 	}
 	

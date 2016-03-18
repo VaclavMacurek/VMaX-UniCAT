@@ -20,7 +20,7 @@ trait CodeExport
 	 * @static
 	 * @var string
 	 */
-	protected static $ExportWay;
+	protected static $ExportWay = UniCAT::UNICAT_OPTION_SKIP;
 	/**
 	 * disables multiple new lines
 	 *
@@ -53,7 +53,7 @@ trait CodeExport
 		{
 			if(in_array(strtolower($Way), UniCAT::Show_Options_CodeExport()))
 			{
-				self::$ExportWay = $Way;
+				static::$ExportWay = $Way;
 			}
 			else
 			{

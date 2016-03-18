@@ -116,6 +116,20 @@ final class ClassScope extends \ReflectionClass
 	}
 
 	/**
+	 * gets value of constant
+	 *
+	 * @param string $Source name of class/interface
+	 * @param string $Name name of constant
+	 *
+	 * @return string value of constant
+	 */
+	public static function Get_ConstantValue($Source, $Name)
+	{
+		$Scope = new ClassScope($Source);
+		return $Scope -> getConstant($Name);
+	}
+
+	/**
 	 * gets list of public functions
 	 *
 	 * @param string $Source name of class
@@ -301,6 +315,19 @@ final class ClassScope extends \ReflectionClass
 		}
 
 		return $Methods;
+	}
+
+	/**
+	 * gets list of interfaces
+	 *
+	 * @param string $Source name of class
+	 *
+	 * @return array names of public functions in class
+	 */
+	public static function Get_Interfaces($Source)
+	{
+		$Scope = new ClassScope($Source);
+		return $Scope -> getInterfaceNames();
 	}
 
 	/**

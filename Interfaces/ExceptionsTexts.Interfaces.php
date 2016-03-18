@@ -287,6 +287,16 @@ interface I_UniCAT_Texts_Exceptions
 	const UNICAT_XCPT_SEC_FNC_MISSING2 = 'WARNING: Function %s does not exists';
 	/**
 	 * secondary part of exception text;
+	 * unspported function
+	 */
+	const UNICAT_XCPT_SEC_FNC_NOSUPPORT1 = 'WARNING: This function is not supported';
+	/**
+	 * secondary part of exception text;
+	 * unspported function
+	 */
+	const UNICAT_XCPT_SEC_FNC_NOSUPPORT2 = 'WARNING: Function %s is not supported';
+	/**
+	 * secondary part of exception text;
 	 * wrong used function - only public may be used
 	 */
 	const UNICAT_XCPT_SEC_FNC_PRHBUSE1 = 'WARNING: This function is not public';
