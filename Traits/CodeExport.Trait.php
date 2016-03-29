@@ -47,11 +47,11 @@ trait CodeExport
 	 * @example Set_ExportWay(UniCAT\UniCAT::UNICAT_OPTION_END); to set that code will be written to screen
 	 * @example Set_ExportWay('write'); to set that code will be written to screen
 	 */
-	public static function Set_ExportWay($Way=UniCAT::UNICAT_OPTION_END)
+	public function Set_ExportWay($Way=UniCAT::UNICAT_OPTION_END)
 	{
 		try
 		{
-			if(in_array(strtolower($Way), UniCAT::Show_Options_CodeExport()))
+			if(in_array(strtolower($Way), UniCAT::ShowOptions_CodeExport()))
 			{
 				static::$ExportWay = $Way;
 			}
@@ -62,7 +62,7 @@ trait CodeExport
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), UniCAT::Show_Options_CodeExport());
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), UniCAT::ShowOptions_CodeExport());
 		}
 	}
 	

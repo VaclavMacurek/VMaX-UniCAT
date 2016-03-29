@@ -21,19 +21,15 @@ class UniCAT_Exception extends \Exception
 	 *
 	 * @param string $Message
 	 *
-	 * @return void
-	 *
 	 * @throws UniCAT_Exception if message was not set
 	 *
 	 * @example UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING); to tell that parameter value (argument) was not set
 	 */
 	public function __construct($Message)
-	{
-		$Message = func_get_args();
-		
+	{		
 		try
 		{
-			if(empty($Message[0]))
+			if(empty($Message))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
 			}
@@ -53,8 +49,6 @@ class UniCAT_Exception extends \Exception
 	 * prepares final exception text
 	 *
 	 * @param string $Warning
-	 *
-	 * @return void
 	 *
 	 * @throws UniCAT_Exception if warning placeholders do not match message given to exception constructor
 	 *

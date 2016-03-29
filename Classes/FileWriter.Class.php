@@ -44,13 +44,25 @@ final class FileWriter
 	 */
 	public function __construct($File)
 	{
+		try
+		{
+			if(empty($File))
+			{
+				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING);
+			}
+		}
+		catch(UniCAT_Exception $Exception)
+		{
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__));
+		}
+
 		$this -> File = $File;
 	}
 	
 	/**
 	 * sets mode for file writing
 	 *
-	 * @param string $Mode how file file will be written
+	 * @param string $Mode how file will be written
 	 *
 	 * @throws UniCAT_Exception if mode was set by wrong option
 	 *
@@ -61,14 +73,14 @@ final class FileWriter
 	{
 		try
 		{
-			if(!in_array($Mode, UniCAT::Show_Options_FileWriter()))
+			if(!in_array($Mode, UniCAT::ShowOptions_FileWriter()))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_DMDOPTION);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), UniCAT::Show_Options_FileWriter());
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), UniCAT::ShowOptions_FileWriter());
 		}
 		
 		$this -> Mode = $Mode;
@@ -87,14 +99,14 @@ final class FileWriter
 	{
 		try
 		{
-			if(!in_array(gettype($Content), UniCAT::Show_Options_Scalars()))
+			if(!in_array(gettype($Content), UniCAT::ShowOptions_Scalars()))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_WRONGVALTYPE);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), gettype($Content), UniCAT::Show_Options_Scalars());
+			$Exception -> ExceptionWarning(__CLASS__, __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__), gettype($Content), UniCAT::ShowOptions_Scalars());
 		}
 		
 		$this -> Content = $Content;
@@ -102,8 +114,6 @@ final class FileWriter
 		
 	/**
 	 * writing of file
-	 *
-	 * @return void
 	 *
 	 * @throws UniCAT_Exception if file name was not set
 	 * @throws UniCAT_Exception if mode was not set

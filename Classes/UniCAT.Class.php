@@ -12,12 +12,12 @@ namespace UniCAT;
  *
  * class for easy access to class constants of chosen interfaces
  *
- * @method array Show_options_Booleans(); show boolean options, only for special uses
- * @method array Show_Options_Scalars(); show selected scalar types
- * @method array Show_Options_Basics(); show selected basic types
- * @method array Show_Options_CodeExport(); show options how code will be handled (written to screen, saved in static variable, ...)
- * @method array Show_Options_FileWriter(); show selected options for writing of file
- * @method array Show_Options_CommentsPosition(); show options for position of comment
+ * @method array ShowOptions_Booleans(); show boolean options, only for special uses
+ * @method array ShowOptions_Scalars(); show selected scalar types
+ * @method array ShowOptions_Basics(); show selected basic types
+ * @method array ShowOptions_CodeExport(); show options how code will be handled (written to screen, saved in static variable, ...)
+ * @method array ShowOptions_FileWriter(); show selected options for writing of file
+ * @method array ShowOptions_CommentsPosition(); show options for position of comment
  */
 class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter, I_UniCAT_Texts_Exceptions, I_UniCAT_Options_CommentsPosition
 {
@@ -52,7 +52,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	}
 	
 	/**
-	 * allows to use functions Show_Options_[suffix];
+	 * allows to use functions ShowOptions_[suffix];
 	 * prevents calling of non-public functions from external scope
 	 *
 	 * @param string $Function name of function
@@ -64,7 +64,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	{		
 		$Options = array();
 		$Error = 0;
-		$Result = preg_match('/Show_Options_(?<Option>([[:upper:]][[:lower:]]+)+)/', $Method, $Options);
+		$Result = preg_match('/ShowOptions_(?<Option>([[:upper:]][[:lower:]]+)+)/', $Method, $Options);
 
 		try
 		{
@@ -90,7 +90,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 				}
 				else
 				{
-					throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_MISSING1);
+					throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_SEC_FNC_NOSUPPORT1);
 				}
 			}
 		}
@@ -103,7 +103,7 @@ class UniCAT implements I_UniCAT_Options_CodeExport, I_UniCAT_Options_FileWriter
 	/**
 	 * shows options for various cases;
 	 * used via magic function __callStatic with CamelCased suffix according to key in array self::$Options;
-	 * full name of functions derived from this is Show_Options_Basics or Show_Options_CodeExport (or else)
+	 * full name of functions derived from this is ShowOptions_Basics or ShowOptions_CodeExport (or else)
 	 *
 	 * @param string CamelCased name of key in array self::$Options
 	 *

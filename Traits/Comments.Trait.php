@@ -28,8 +28,6 @@ trait Comments
 	 * @param string $Text
 	 * @param string $Position
 	 *
-	 * @return void
-	 *
 	 * @throws UniCAT_Exception if comment was not set
 	 * @throws UniCAT_Exception if position setting was set wrong
 	 *
@@ -40,14 +38,14 @@ trait Comments
 	{
 		try
 		{
-			if(!in_array($Position, UniCAT::Show_Options_CommentsPosition()))
+			if(!in_array($Position, UniCAT::ShowOptions_CommentsPosition()))
 			{
 				throw new UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_DMDOPTION);
 			}
 		}
 		catch(UniCAT_Exception $Exception)
 		{
-			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__, 1), UniCAT::Show_Options_CommentPosition());
+			$Exception -> ExceptionWarning(get_called_class(), __FUNCTION__, MethodScope::Get_ParameterName(__CLASS__, __FUNCTION__, 1), UniCAT::ShowOptions_CommentPosition());
 		}
 	
 		static::$Comments[$Position] = $Text;
@@ -58,8 +56,6 @@ trait Comments
 	 *
 	 * @param string $Code generated code for inserting of comments
 	 * @param array $Comments comments for insereting into code
-	 *
-	 * @return void
 	 *
 	 * @example Add_Comments('example text', static::$Comments);
 	 */
@@ -72,9 +68,6 @@ trait Comments
 		$Namespace = explode('\\', get_class())[0];
 		$Interface = $Namespace.'\I_'.$Namespace.'_Texts_Comments';
 	
-		$Scope = new ClassScope($Interface);
-		$Constructions = $Scope -> getConstants();
-	
 		switch(count($Comments))
 		{
 			/*
@@ -83,18 +76,18 @@ trait Comments
 			case 1:
 				if(isset($Comments[UniCAT::UNICAT_OPTION_ABOVE]))
 				{
-					$Code = sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code;
+					$Code = sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code;
 				}
-				else
+				elseif(isset($Comments[UniCAT::UNICAT_OPTION_BELOW]))
 				{
-					$Code .= sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
+					$Code .= sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				}
 				break;
 			/*
 			 * both comments were set
 			 */
 			case 2:
-				$Code = sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code.sprintf($Constructions[array_keys($Constructions)[0]], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
+				$Code = sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code.sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				break;
 			/*
 			 * no comment was set;
