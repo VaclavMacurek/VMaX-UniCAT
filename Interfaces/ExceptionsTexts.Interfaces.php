@@ -94,6 +94,16 @@ interface I_UniCAT_Texts_Exceptions
 	 * secondary part of exception text;
 	 * wrong count of arguments;
 	 */
+	const UNICAT_XCPT_SEC_PRM_DMDLMTDARGS1 = 'WARNING: Count of arguments has to be between %d and %d';
+	/**
+	 * secondary part of exception text;
+	 * wrong count of arguments;
+	 */
+	const UNICAT_XCPT_SEC_PRM_DMDLMTDARGS2 = 'WARNING: Count of arguments has to be %d or %d';
+	/**
+	 * secondary part of exception text;
+	 * wrong count of arguments;
+	 */
 	const UNICAT_XCPT_SEC_PRM_PRHBEQARGS = 'WARNING: Count of arguments cannot be %d';
 	/**
 	 * secondary part of exception text;
@@ -124,7 +134,7 @@ interface I_UniCAT_Texts_Exceptions
 	 * secondary part of exception text;
 	 * wrong number;
 	 */
-	const UNICAT_XCPT_SEC_PRM_GREATNUMBER2 = 'WARNING: Value cannot greater than or equal to %d';
+	const UNICAT_XCPT_SEC_PRM_GREATNUMBER2 = 'WARNING: Value cannot be greater than or equal to %d';
 	/**
 	 * secondary part of exception text;
 	 * wrong number;

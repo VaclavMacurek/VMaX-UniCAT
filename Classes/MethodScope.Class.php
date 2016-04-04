@@ -83,6 +83,13 @@ final class MethodScope extends \ReflectionMethod
 		return $Params[$Index] -> getType();
 	}
 
+	public static function Get_ParameterDefaultValue($Class, $Method, $Index=0)
+	{
+		$Scope = new MethodScope($Class, $Method);
+		$Params = $Scope -> getParameters();
+		return $Params[$Index] -> getDefaultValue();
+	}
+
 	/**
 	 * checks if function is public
 	 *

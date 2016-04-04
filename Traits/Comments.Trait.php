@@ -76,18 +76,21 @@ trait Comments
 			case 1:
 				if(isset($Comments[UniCAT::UNICAT_OPTION_ABOVE]))
 				{
-					$Code = sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code;
+					$Form = "\n".ClassScope::Get_ConstantsValues($Interface)[0]."\n\t%s\n";
+					$Code = sprintf($Form, $Comments[UniCAT::UNICAT_OPTION_ABOVE], preg_replace('/\n/', "\n\t", $Code));
 				}
 				elseif(isset($Comments[UniCAT::UNICAT_OPTION_BELOW]))
 				{
-					$Code .= sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
+					$Form = "\n\t%s".ClassScope::Get_ConstantsValues($Interface)[0]."\n";
+					$Code = sprintf($Form, preg_replace('/\n/', "\n\t", $Code), $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				}
 				break;
 			/*
 			 * both comments were set
 			 */
 			case 2:
-				$Code = sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_ABOVE]).$Code.sprintf(ClassScope::Get_ConstantsValues($Interface)[0], $Comments[UniCAT::UNICAT_OPTION_BELOW]);
+				$Form = "\n".ClassScope::Get_ConstantsValues($Interface)[0]."\n\t%s\n".ClassScope::Get_ConstantsValues($Interface)[0]."\n";
+				$Code = sprintf($Form, $Comments[UniCAT::UNICAT_OPTION_ABOVE], preg_replace('/\n/', "\n\t", $Code), $Comments[UniCAT::UNICAT_OPTION_BELOW]);
 				break;
 			/*
 			 * no comment was set;

@@ -26,7 +26,9 @@ class UniCAT_Exception extends \Exception
 	 * @example UniCAT_Exception(UniCAT::UNICAT_XCPT_MAIN_CLS, UniCAT::UNICAT_XCPT_MAIN_FNC, UniCAT::UNICAT_XCPT_MAIN_PRM, UniCAT::UNICAT_XCPT_SEC_PRM_MISSING); to tell that parameter value (argument) was not set
 	 */
 	public function __construct($Message)
-	{		
+	{
+		$Message = func_get_args();
+
 		try
 		{
 			if(empty($Message))
